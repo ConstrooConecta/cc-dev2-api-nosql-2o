@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/discounts")
 public class DescontoController {
     private final DescontoService descontoService;
     private final Validator validator;
@@ -117,8 +118,8 @@ public class DescontoController {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(mediaType = "text/plain"))
     })
-    public ResponseEntity<?> updateVoucher(@PathVariable String voucherId,
-                                           @RequestBody Map<String, Object> updates) {
+    public ResponseEntity<?> updateVoucherById(@PathVariable String voucherId,
+                                               @RequestBody Map<String, Object> updates) {
         try {
             ObjectId id = new ObjectId(voucherId);
             Desconto voucher = descontoService.findVouchersById(id);
@@ -201,7 +202,7 @@ public class DescontoController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cupom não encontrado.");
             }
 
-            Desconto voucher = vouchers.get(0); // Considerando que cupom é único. Ajuste se houver múltiplos com o mesmo nome
+            Desconto voucher = vouchers.get(0);
 
             // Lista de campos válidos que podem ser atualizados
             List<String> validFields = Arrays.asList("cupom", "valorDesconto");
@@ -263,9 +264,10 @@ public class DescontoController {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(mediaType = "text/plain"))
     })
-    public ResponseEntity<?> deleteVoucherByVoucherId(@PathVariable ObjectId voucherId) {
+    public ResponseEntity<?> deleteVoucherByVoucherId(@PathVariable String voucherId) {
         try {
-            descontoService.deleteVoucher(voucherId);
+            ObjectId id = new ObjectId(voucherId);
+            descontoService.deleteVoucher(id);
             return ResponseEntity.ok("Cupom de desconto excluído com sucesso");
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Erro de integridade de dados: \n" + e.getMessage());
@@ -274,7 +276,7 @@ public class DescontoController {
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao deletar usuário: \n" + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao deletar cupom: \n" + e.getMessage());
         }
     }
 
@@ -319,7 +321,7 @@ public class DescontoController {
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(mediaType = "text/plain"))
     })
-    public ResponseEntity<?> findVoucherById(@Parameter(description = "ObjectId do cupom de desconto", example = "5f6b5f7b5f6b5f6b5f6b5f6b") @PathVariable String voucherId) {
+    public ResponseEntity<?> findVoucherById(@Parameter @PathVariable String voucherId) {
         try {
             ObjectId id = new ObjectId(voucherId);
             return ResponseEntity.ok(descontoService.findVouchersById(id));
