@@ -28,14 +28,6 @@ public class Desconto {
     public Desconto() {
     }
 
-    public Desconto(
-            String cupom,
-            Double valorDesconto
-    ) {
-        this.cupom = cupom;
-        this.valorDesconto = valorDesconto;
-    }
-
     public String getId() {
         return id != null ? id.toHexString() : null;
     }

@@ -45,7 +45,7 @@ public class DescontoService {
     @Transactional
     public void deleteVoucherByVoucherName(String voucher) {
         if (descontoRepository.findByCupomLikeIgnoreCase(voucher).isEmpty()) {
-            throw new RuntimeException("Cupom de desconto não encontrado: [" + voucher + "]");
+            throw new RuntimeException("Cupom de desconto não encontrado.: [" + voucher + "]");
         }
         descontoRepository.deleteByCupom(voucher);
     }
