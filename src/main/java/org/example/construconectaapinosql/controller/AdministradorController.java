@@ -198,7 +198,7 @@ public class AdministradorController {
     public ResponseEntity<?> updateAdminByUser(@PathVariable String userAdm,
                                                @RequestBody Map<String, Object> updates) {
         try {
-            List<Administrador> admim = administradorService.findByUsuarioLikeIgnoreCase(userAdm);
+            List<Administrador> admim = administradorService.findByUsuarioIgnoreCase(userAdm);
 
             if (admim.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Administrador não encontrado.");
@@ -281,7 +281,7 @@ public class AdministradorController {
     public ResponseEntity<?> updateAdminByEmail(@PathVariable String email,
                                                 @RequestBody Map<String, Object> updates) {
         try {
-            List<Administrador> admim = administradorService.findByEmailLikeIgnoreCase(email);
+            List<Administrador> admim = administradorService.findByEmailIgnoreCase(email);
 
             if (admim.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Administrador não encontrado.");
@@ -450,7 +450,7 @@ public class AdministradorController {
                     content = @Content(mediaType = "text/plain"))
     })
     public ResponseEntity<?> searchByUserAdm(@PathVariable String userAdm) {
-        List<Administrador> lAdmin = administradorService.findByUsuarioLikeIgnoreCase(userAdm);
+        List<Administrador> lAdmin = administradorService.findByUsuarioIgnoreCase(userAdm);
         if (!lAdmin.isEmpty()) {
             return ResponseEntity.ok(lAdmin);
         } else {
@@ -469,7 +469,7 @@ public class AdministradorController {
                     content = @Content(mediaType = "text/plain"))
     })
     public ResponseEntity<?> searchByEmailAdm(@PathVariable String email) {
-        List<Administrador> lAdmin = administradorService.findByEmailLikeIgnoreCase(email);
+        List<Administrador> lAdmin = administradorService.findByEmailIgnoreCase(email);
         if (!lAdmin.isEmpty()) {
             return ResponseEntity.ok(lAdmin);
         } else {
