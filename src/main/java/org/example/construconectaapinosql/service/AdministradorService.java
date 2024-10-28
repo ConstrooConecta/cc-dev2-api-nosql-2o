@@ -6,7 +6,10 @@ import org.example.construconectaapinosql.repository.AdministradorRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class AdministradorService {
@@ -38,7 +41,7 @@ public class AdministradorService {
 
     @Transactional
     public void deleteAdminsByEmail(String email) {
-        if (administradorRepository.findByEmailLikeIgnoreCase(email).isEmpty()) {
+        if (administradorRepository.findByEmailIgnoreCase(email).isEmpty()) {
             throw new RuntimeException("Administrador nao encontrado.: [" + email + "]");
         }
         administradorRepository.deleteByEmail(email);
@@ -46,10 +49,10 @@ public class AdministradorService {
 
     @Transactional
     public void deleteAdminsByUser(String user) {
-        if (administradorRepository.findByUsuarioLikeIgnoreCase(user).isEmpty()) {
+        if (administradorRepository.findByUsuarioIgnoreCase(user).isEmpty()) {
             throw new RuntimeException("Administrador nao encontrado.: [" + user + "]");
         }
-        administradorRepository.deleteByEmail(user);
+        administradorRepository.deleteByUsuario(user);
     }
 
     public Administrador findAdminsById(ObjectId id) {
@@ -57,26 +60,25 @@ public class AdministradorService {
                 orElseThrow(() -> new RuntimeException("Administrador não encontrado."));
     }
 
-    public List<Administrador> findByUsuarioLikeIgnoreCase(String usuario) {
-        return administradorRepository.findByUsuarioLikeIgnoreCase(usuario);
+    public List<Administrador> findByUsuarioIgnoreCase(String usuario) {
+        return administradorRepository.findByUsuarioIgnoreCase(usuario);
     }
 
-    public List<Administrador> findByEmailLikeIgnoreCase(String email) {
-        return administradorRepository.findByEmailLikeIgnoreCase(email);
+    public List<Administrador> findByEmailIgnoreCase(String email) {
+        return administradorRepository.findByEmailIgnoreCase(email);
     }
 
     private void validateUniqueFields(Administrador adm, boolean isUpdate) {
         // Se não for uma atualização ou o CPF for diferente do CPF existente, validar
         if (!isUpdate || !administradorRepository.findById(adm.getId()).get().getUsuario().equals(adm.getUsuario())) {
-            if (!administradorRepository.findByUsuarioLikeIgnoreCase(adm.getUsuario()).isEmpty()) {
+            if (!administradorRepository.findByUsuarioIgnoreCase(adm.getUsuario()).isEmpty()) {
                 throw new RuntimeException("Este usuário já existe.");
             }
         }
         if (!isUpdate || !administradorRepository.findById(adm.getId()).get().getEmail().equals(adm.getEmail())) {
-            if (!administradorRepository.findByUsuarioLikeIgnoreCase(adm.getEmail()).isEmpty()) {
+            if (!administradorRepository.findByUsuarioIgnoreCase(adm.getEmail()).isEmpty()) {
                 throw new RuntimeException("Este e-mail já existe.");
             }
         }
     }
-
 }

@@ -12,12 +12,11 @@ import java.util.Optional;
 public interface AdministradorRepository extends MongoRepository<Administrador, ObjectId> {
     Optional<Administrador> findById(String id);
 
-    List<Administrador> findByUsuarioLikeIgnoreCase(String usuario);
+    List<Administrador> findByUsuarioIgnoreCase(String usuario);
 
-    List<Administrador> findByEmailLikeIgnoreCase(String email);
+    List<Administrador> findByEmailIgnoreCase(String email);
 
     void deleteByUsuario(String usuario);
 
     void deleteByEmail(String email);
-
 }
