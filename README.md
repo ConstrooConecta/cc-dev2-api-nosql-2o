@@ -68,4 +68,3 @@ Para futuras implementações, é recomendável considerar ajustes de performanc
 # Time completo:
 | [<img loading="lazy" src="https://avatars.githubusercontent.com/u/124629701?s=400&v=4" width=115><br><sub>Roger Rodrigues de Santana</sub>](https://github.com/Roger13san) |  [<img loading="lazy" src="https://avatars.githubusercontent.com/u/124402143?v=4" width=115><br><sub>Kauã Rodrigues dos santos</sub>](https://github.com/kauarsantoss)  |  [<img loading="lazy" src="https://avatars.githubusercontent.com/u/142252283?v=4" width=115><br><sub>Maria Julia Santos De Oliveira</sub>](https://github.com/oliveir4maju)  |  [<img loading="lazy" src="https://avatars.githubusercontent.com/u/144955008?v=4" width=115><br><sub>Talita De Brito Nalon</sub>](https://github.com/TalitaNalon) 
 | :---: | :---: | :---: | :---: |
-
