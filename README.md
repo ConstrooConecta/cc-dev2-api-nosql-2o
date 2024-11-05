@@ -52,6 +52,7 @@ Após ter copiado a chave:
 # :hammer_and_wrench: Tecnologias Utilizadas
 * MongoDB
 * Swagger
+* Render
 
 
 # Autores do projeto:
